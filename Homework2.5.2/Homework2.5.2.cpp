@@ -7,19 +7,65 @@
 class Figure {
 protected:
     int sides_count;
-
-public:
+    int A, B, C, D;
+    int a, b, c, d;
     Figure() {
-        sides_count = 0;
-    }
+       sides_count = 0;
+       this->A = 0;
+       this->B = 0;
+       this->C = 0;
+       this->D = 0;
+       this->a = 0;
+       this->b = 0;
+       this->c = 0;
+       this->d = 0;
+   }
+public:
+   
     int get_sides_count() {
         return sides_count;
     }
+    void print_fig() {
+        if (D == 0) {
+            if (C == 90) {
+                std::cout << "Прямоугольный треугольник:\n";
+            }
+            else if (a == c && c != b && A == C) {
+                std::cout << "Равнобедренный треугольник:\n";
+            }
+            else if (a == b && a == c) {
+                std::cout << "Равносторонний треугольник:\n";
+            }
+            else {
+                std::cout << "Треугольник:\n";
+            }
+            std::cout << "Стороны: " << "a = " << a << " b = " << b << " c = " << c << std::endl;
+            std::cout << "Углы: " << "A = " << A << " B = " << B << " C = " << C << std::endl;
+        }
+        else {
+            if (a == c && c != b && b == d && A == 90 && B == 90 && C == 90 && D == 90) {
+                std::cout << "Прямоугольник:\n";
+            }
+            else if (a == b && b == c && c == d && A == 90 && B == 90 && C == 90 && D == 90) {
+                std::cout << "Квадрат:\n";
+            }
+            else if (a == c && c != b && b == d && A == C && C != B && B == D) {
+                std::cout << "Параллелограмм:\n";
+            }
+            else if (a == b && b == c && c == d && A == C && C != B && B == D) {
+                std::cout << "Ромб:\n";
+            }
+            else {
+                std::cout << "Четырехугольник:\n";
+            }
+            std::cout << "Стороны: " << "a = " << a << " b = " << b << " c = " << c 
+                << " d = " << d << std::endl;
+            std::cout << "Углы: " << "A = " << A << " B = " << B << " C = " << C
+                << " D = " << D << std::endl;
+        }
+    }
 };
 class Triangle :public Figure {
-protected:
-    int A, B, C;
-    int a, b, c;
 public:
     Triangle(int a, int b, int c, int A, int B, int C) {
         sides_count = 3;
@@ -32,23 +78,6 @@ public:
     }
     int get_sides_count() {
         return sides_count;
-    }int get_side_a() {
-        return a;
-    }
-    int get_side_a() {
-        return b;
-    }
-    int get_side_a() {
-        return c;
-    }
-    int get_side_a() {
-        return A;
-    }
-    int get_side_a() {
-        return B;
-    }
-    int get_side_a() {
-        return C;
     }
 };
 class Triangle90 :public Triangle {
@@ -64,9 +93,6 @@ public:
     TriangleAllEqual(int a) :Triangle(a, a, a, 60, 60, 60){}
 };
 class Quadrilateral :public Figure {
-protected:
-    int A, B, C, D;
-    int a, b, c, d;
 public:
     Quadrilateral(int a, int b, int c, int d, int A, int B, int C, int D) {
         sides_count = 4;
@@ -78,34 +104,6 @@ public:
         this->b = b;
         this->c = c;
         this->d = d;
-    }
-    
-    int get_sides_count() {
-        return sides_count;
-    }
-    int get_side_a() {
-        return a;
-    }
-    int get_side_a() {
-        return b;
-    }
-    int get_side_a() {
-        return c;
-    }
-    int get_side_a() {
-        return d;
-    }
-    int get_side_a() {
-        return A;
-    }
-    int get_side_a() {
-        return B;
-    }
-    int get_side_a() {
-        return C;
-    }
-    int get_side_a() {
-        return D;
     }
 };
 class Parallelogram :public Quadrilateral {
@@ -128,16 +126,41 @@ class Rhombus:public Parallelogram {
 public:
     Rhombus(int a, int A, int B) :Parallelogram(a, a, A, B){}
 };
-
-void print_info() {
-
+void print_info(Figure& fig) {
+    fig.print_fig();
 }
 
 int main()
 {
     setlocale(LC_ALL, "Russian");
-    Parallelogram squadron(20, 30, 29, 49);
-    squadron.get_info();
+    Triangle tri(10, 20, 30, 50, 60, 70);
+    Triangle90 tri90(10, 20, 30, 50, 60);
+    Triangle2SideEqual tri2se(10, 20, 50, 60);
+    TriangleAllEqual triae(30);
+    Quadrilateral qua(10, 20, 30, 40, 50, 60, 70, 80);
+    Rectangle rec(10, 20);
+    Square squa(20);
+    Parallelogram prll(20, 30, 30, 40);
+    Rhombus rho(30, 30, 40);
+
+    print_info(tri);
+    std::cout << std::endl;
+    print_info(tri90);
+    std::cout << std::endl;
+    print_info(tri2se);
+    std::cout << std::endl;
+    print_info(triae);
+    std::cout << std::endl;
+    print_info(qua);
+    std::cout << std::endl;
+    print_info(rec);
+    std::cout << std::endl;
+    print_info(squa);
+    std::cout << std::endl;
+    print_info(prll);
+    std::cout << std::endl;
+    print_info(rho);
+    std::cout << std::endl;
 
 }
 
