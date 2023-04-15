@@ -116,9 +116,6 @@ public:
         std::cout << "Углы: " << "A=" << A << " B=" << B << " C=" << C <<
             " D=" << D << std::endl;
     }
-   /* void get_info() {
-        std::cout << A << "\n" << B << "\n" << C << "\n" << D << "\n" << a << "\n" << b << "\n" << c << "\n" << d << "\n";
-    }*/
 };
 class Rectangle :public Parallelogram {
 public:
