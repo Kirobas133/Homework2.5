@@ -9,6 +9,8 @@ protected:
     int sides_count;
     int A, B, C, D;
     int a, b, c, d;
+    std::string ron;
+public:
     Figure() {
         sides_count = 0;
         this->A = 0;
@@ -19,51 +21,12 @@ protected:
         this->b = 0;
         this->c = 0;
         this->d = 0;
+        this->ron = "Правильная";
     }
-public:
-
-    int get_sides_count() {
-        return sides_count;
-    }
-    void print_fig() {
-        if (D == 0) {
-            if (C == 90) {
-                std::cout << "Прямоугольный треугольник:\n";
-            }
-            else if (a == c && c != b && A == C) {
-                std::cout << "Равнобедренный треугольник:\n";
-            }
-            else if (a == b && a == c) {
-                std::cout << "Равносторонний треугольник:\n";
-            }
-            else {
-                std::cout << "Треугольник:\n";
-            }
-            std::cout << "Стороны: " << "a = " << a << " b = " << b << " c = " << c << std::endl;
-            std::cout << "Углы: " << "A = " << A << " B = " << B << " C = " << C << std::endl;
+    virtual void print_fig() {      
+                std::cout << "Фигура:\n" << ron << std::endl
+                    << "Количество сторон: " << sides_count << std::endl;           
         }
-        else {
-            if (a == c && c != b && b == d && A == 90 && B == 90 && C == 90 && D == 90) {
-                std::cout << "Прямоугольник:\n";
-            }
-            else if (a == b && b == c && c == d && A == 90 && B == 90 && C == 90 && D == 90) {
-                std::cout << "Квадрат:\n";
-            }
-            else if (a == c && c != b && b == d && A == C && C != B && B == D) {
-                std::cout << "Параллелограмм:\n";
-            }
-            else if (a == b && b == c && c == d && A == C && C != B && B == D) {
-                std::cout << "Ромб:\n";
-            }
-            else {
-                std::cout << "Четырехугольник:\n";
-            }
-            std::cout << "Стороны: " << "a = " << a << " b = " << b << " c = " << c
-                << " d = " << d << std::endl;
-            std::cout << "Углы: " << "A = " << A << " B = " << B << " C = " << C
-                << " D = " << D << std::endl;
-        }
-    }
 };
 class Triangle :public Figure {
 public:
@@ -75,22 +38,47 @@ public:
         this->a = a;
         this->b = b;
         this->c = c;
+        if ((A + B + C) != 180) {
+            ron = "Неправильная";
+        }
     }
-    int get_sides_count() {
-        return sides_count;
+    void print_fig() override {
+        std::cout << "Треугольник:\n" << ron << std::endl
+            << "Количество сторон: " << sides_count << std::endl;
+        std::cout << "Стороны: " << "a=" << a << " b=" << b << " c=" << c << std::endl;
+        std::cout << "Углы: " << "A=" << A << " B=" << B << " C=" << C << std::endl;
     }
 };
 class Triangle90 :public Triangle {
 public:
     Triangle90(int a, int b, int c, int A, int B) :Triangle(a, b, c, A, B, 90) {}
+    void print_fig() override {
+
+        std::cout << "Прямоугольный треугольник:\n" << ron << std::endl
+            << "Количество сторон: " << sides_count << std::endl;
+        std::cout << "Стороны: " << "a=" << a << " b=" << b << " c=" << c << std::endl;
+        std::cout << "Углы: " << "A=" << A << " B=" << B << " C=" << C << std::endl;
+    }
 };
 class Triangle2SideEqual :public Triangle {
 public:
     Triangle2SideEqual(int a, int b, int A, int B) :Triangle(a, b, a, A, B, A) {}
+    void print_fig() override {
+        std::cout << "Равнобедренный треугольник:\n" << ron << std::endl
+            << "Количество сторон: " << sides_count << std::endl;
+        std::cout << "Стороны: " << "a=" << a << " b=" << b << " c=" << c << std::endl;
+        std::cout << "Углы: " << "A=" << A << " B=" << B << " C=" << C << std::endl;
+    }
 };
 class TriangleAllEqual :public Triangle {
 public:
     TriangleAllEqual(int a) :Triangle(a, a, a, 60, 60, 60) {}
+    void print_fig() override {
+        std::cout << "Равносторонний треугольник:\n" << ron << std::endl
+            << "Количество сторон: " << sides_count << std::endl;
+        std::cout << "Стороны: " << "a=" << a << " b=" << b << " c=" << c << std::endl;
+        std::cout << "Углы: " << "A=" << A << " B=" << B << " C=" << C << std::endl;
+    }
 };
 class Quadrilateral :public Figure {
 public:
@@ -104,27 +92,69 @@ public:
         this->b = b;
         this->c = c;
         this->d = d;
+        if ((A + B + C + D) != 360) {
+            ron = "Неправильная";
+        }
+    }
+    void print_fig() override {
+        std::cout << "Четырехугольник:\n" << ron << std::endl
+            << "Количество сторон: " << sides_count << std::endl;
+        std::cout << "Стороны: " << "a=" << a << " b=" << b << " c=" << c <<
+            " d=" << d << std::endl;
+        std::cout << "Углы: " << "A=" << A << " B=" << B << " C=" << C <<
+            " D=" << D << std::endl;
     }
 };
 class Parallelogram :public Quadrilateral {
 public:
     Parallelogram(int a, int b, int A, int B) :Quadrilateral(a, b, a, b, A, B, A, B) {}
-
-    void get_info() {
-        std::cout << A << "\n" << B << "\n" << C << "\n" << D << "\n" << a << "\n" << b << "\n" << c << "\n" << d << "\n";
+    void print_fig() override {
+        std::cout << "Параллелограмм:\n" << ron << std::endl
+            << "Количество сторон: " << sides_count << std::endl;
+        std::cout << "Стороны: " << "a=" << a << " b=" << b << " c=" << c <<
+            " d=" << d << std::endl;
+        std::cout << "Углы: " << "A=" << A << " B=" << B << " C=" << C <<
+            " D=" << D << std::endl;
     }
+   /* void get_info() {
+        std::cout << A << "\n" << B << "\n" << C << "\n" << D << "\n" << a << "\n" << b << "\n" << c << "\n" << d << "\n";
+    }*/
 };
 class Rectangle :public Parallelogram {
 public:
     Rectangle(int a, int b) :Parallelogram(a, b, 90, 90) {}
+    void print_fig() override {
+        std::cout << "Прямоугольник:\n" << ron << std::endl
+            << "Количество сторон: " << sides_count << std::endl;
+        std::cout << "Стороны: " << "a=" << a << " b=" << b << " c=" << c <<
+            " d=" << d << std::endl;
+        std::cout << "Углы: " << "A=" << A << " B=" << B << " C=" << C <<
+            " D=" << D << std::endl;
+    }
 };
 class Square :public Rectangle {
 public:
     Square(int a) :Rectangle(a, a) {}
+    void print_fig() override {
+        std::cout << "Квадрат:\n" << ron << std::endl
+            << "Количество сторон: " << sides_count << std::endl;
+        std::cout << "Стороны: " << "a=" << a << " b=" << b << " c=" << c <<
+            " d=" << d << std::endl;
+        std::cout << "Углы: " << "A=" << A << " B=" << B << " C=" << C <<
+            " D=" << D << std::endl;
+    }
 };
 class Rhombus :public Parallelogram {
 public:
     Rhombus(int a, int A, int B) :Parallelogram(a, a, A, B) {}
+    void print_fig() override {
+        std::cout << "Ромб:\n" << ron << std::endl
+            << "Количество сторон: " << sides_count << std::endl;
+        std::cout << "Стороны: " << "a=" << a << " b=" << b << " c=" << c <<
+            " d=" << d << std::endl;
+        std::cout << "Углы: " << "A=" << A << " B=" << B << " C=" << C <<
+            " D=" << D << std::endl;
+    }
 };
 void print_info(Figure& fig) {
     fig.print_fig();
@@ -133,8 +163,10 @@ void print_info(Figure& fig) {
 int main()
 {
     setlocale(LC_ALL, "Russian");
+    Figure figu;
     Triangle tri(10, 20, 30, 50, 60, 70);
     Triangle90 tri90(10, 20, 30, 50, 60);
+    Triangle90 tri91(10, 20, 30, 50, 40);
     Triangle2SideEqual tri2se(10, 20, 50, 60);
     TriangleAllEqual triae(30);
     Quadrilateral qua(10, 20, 30, 40, 50, 60, 70, 80);
@@ -143,9 +175,13 @@ int main()
     Parallelogram prll(20, 30, 30, 40);
     Rhombus rho(30, 30, 40);
 
+    print_info(figu);
+    std::cout << std::endl;
     print_info(tri);
     std::cout << std::endl;
     print_info(tri90);
+    std::cout << std::endl;
+    print_info(tri91);
     std::cout << std::endl;
     print_info(tri2se);
     std::cout << std::endl;
