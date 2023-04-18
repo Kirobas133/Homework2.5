@@ -117,8 +117,12 @@ public:
         name = "Ромб";
     }
 };
-void print_info(Figure& fig) {
-    fig.print_fig();
+/*Тут я разобрался с тем вопросом который задал про отправку указателя когда отправлял дз,
+так что все понятно, можете на него не отвечать, Заранее спасибо большое != )
+Однако так правильнее и уместнее по какой причине, можете ли пояснить?
+*/
+void print_info(Figure* fig) {
+    fig->print_fig();
 }
 
 int main()
@@ -134,23 +138,23 @@ int main()
     Parallelogram prll(20, 30, 30, 40);
     Rhombus rho(30, 30, 40);
 
-    print_info(tri);
+    print_info(&tri);
     std::cout << std::endl;
-    print_info(tri90);
+    print_info(&tri90);
     std::cout << std::endl;
-    print_info(tri2se);
+    print_info(&tri2se);
     std::cout << std::endl;
-    print_info(triae);
+    print_info(&triae);
     std::cout << std::endl;
-    print_info(qua);
+    print_info(&qua);
     std::cout << std::endl;
-    print_info(rec);
+    print_info(&rec);
     std::cout << std::endl;
-    print_info(squa);
+    print_info(&squa);
     std::cout << std::endl;
-    print_info(prll);
+    print_info(&prll);
     std::cout << std::endl;
-    print_info(rho);
+    print_info(&rho);
     std::cout << std::endl;
 
 }
